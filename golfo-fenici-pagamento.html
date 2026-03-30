@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Golfo dei Fenici">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a1628">
+<title>Golfo dei Fenici — Pagamenti</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --blu: #0a1628;
+    --blu2: #132040;
+    --oro: #c9a84c;
+    --oro2: #e8c97a;
+    --bianco: #f5f0e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--blu);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  /* Sfondo animato */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 85%, rgba(201,168,76,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 70% at 85% 15%, rgba(19,32,64,0.95) 0%, transparent 65%),
+      linear-gradient(160deg, #0a1628 0%, #0d1f3c 50%, #071020 100%);
+  }
+
+  /* Onde in basso */
+  .onde {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 180px; z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* Particelle oro */
+  .particle {
+    position: fixed; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.6), transparent);
+    animation: float linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+  }
+
+  /* Contenuto principale */
+  .contenuto {
+    position: relative; z-index: 10;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 30px;
+    gap: 0;
+  }
+
+  /* Emblema */
+  .emblema {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,168,76,0.5);
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 40% 35%, rgba(201,168,76,0.15), rgba(10,22,40,0.8));
+    box-shadow:
+      0 0 0 8px rgba(201,168,76,0.06),
+      0 0 60px rgba(201,168,76,0.20),
+      inset 0 1px 0 rgba(201,168,76,0.3);
+    animation: pulseGlow 3s ease-in-out infinite;
+    margin-bottom: 28px;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 8px rgba(201,168,76,0.06), 0 0 60px rgba(201,168,76,0.20), inset 0 1px 0 rgba(201,168,76,0.3); }
+    50% { box-shadow: 0 0 0 14px rgba(201,168,76,0.10), 0 0 90px rgba(201,168,76,0.35), inset 0 1px 0 rgba(201,168,76,0.4); }
+  }
+
+  .ancora {
+    font-size: 48px;
+    filter: drop-shadow(0 0 12px rgba(201,168,76,0.5));
+    animation: dondola 4s ease-in-out infinite;
+  }
+
+  @keyframes dondola {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  /* Titolo */
+  .titolo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 500;
+    color: var(--oro2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 6px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .sottotitolo {
+    font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(201,168,76,0.55);
+    text-align: center; margin-bottom: 48px;
+    animation: fadeUp 0.8s ease 0.35s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Divisore oro */
+  .divisore {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--oro), transparent);
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  /* Pulsante principale */
+  .btn-paga {
+    position: relative;
+    background: linear-gradient(135deg, #1a3a6b 0%, #0d2347 100%);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 16px;
+    padding: 22px 40px;
+    color: var(--oro2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.4),
+      0 0 0 1px rgba(201,168,76,0.1),
+      inset 0 1px 0 rgba(201,168,76,0.15);
+    transition: all 0.3s ease;
+    animation: fadeUp 0.8s ease 0.5s both;
+    overflow: hidden;
+    min-width: 240px; justify-content: center;
+  }
+
+  .btn-paga::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .btn-paga:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+
+  .btn-paga:active::before { opacity: 1; }
+
+  .btn-icona { font-size: 20px; }
+
+  /* Badge sicurezza */
+  .badge {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 24px;
+    font-size: 11px; letter-spacing: 0.08em;
+    color: rgba(201,168,76,0.4);
+    text-transform: uppercase;
+    animation: fadeUp 0.8s ease 0.65s both;
+  }
+
+  .badge-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(201,168,76,0.4);
+  }
+
+  /* Istruzioni aggiungi a schermata */
+  .istruzioni {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(10,22,40,0.98) 0%, rgba(10,22,40,0.0) 100%);
+    padding: 30px 24px 36px;
+    text-align: center;
+    z-index: 20;
+    animation: fadeUp 1s ease 1s both;
+  }
+
+  .istr-testo {
+    font-size: 11px; color: rgba(201,168,76,0.35);
+    letter-spacing: 0.06em; line-height: 1.6;
+  }
+
+  .istr-testo strong { color: rgba(201,168,76,0.55); }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- Onde SVG -->
+<svg class="onde" viewBox="0 0 1440 180" preserveAspectRatio="none">
+  <path fill="rgba(201,168,76,0.04)" d="M0,90 C240,140 480,30 720,90 C960,150 1200,30 1440,90 L1440,180 L0,180 Z"/>
+  <path fill="rgba(201,168,76,0.03)" d="M0,120 C360,60 720,160 1080,100 C1260,70 1380,130 1440,120 L1440,180 L0,180 Z"/>
+</svg>
+
+<!-- Particelle -->
+<div class="particle" style="width:4px;height:4px;left:15%;animation-duration:8s;animation-delay:0s;"></div>
+<div class="particle" style="width:3px;height:3px;left:35%;animation-duration:11s;animation-delay:2s;"></div>
+<div class="particle" style="width:5px;height:5px;left:60%;animation-duration:9s;animation-delay:4s;"></div>
+<div class="particle" style="width:3px;height:3px;left:80%;animation-duration:13s;animation-delay:1s;"></div>
+<div class="particle" style="width:4px;height:4px;left:50%;animation-duration:10s;animation-delay:6s;"></div>
+
+<!-- Contenuto -->
+<div class="contenuto">
+  <div class="emblema">
+    <span class="ancora">⚓</span>
+  </div>
+
+  <div class="titolo">Golfo dei Fenici</div>
+  <div class="sottotitolo">Associazione — Pagamenti</div>
+  <div class="divisore"></div>
+
+  <a class="btn-paga" href="https://tinyurl.com/4uyw3v3v" target="_blank">
+    <span class="btn-icona">💳</span>
+    <span>Paga la quota</span>
+  </a>
+
+  <div class="badge">
+    <div class="badge-dot"></div>
+    Zero commissioni
+    <div class="badge-dot"></div>
+    Pagamento sicuro
+    <div class="badge-dot"></div>
+  </div>
+</div>
+
+<!-- Istruzioni schermata home -->
+<div class="istruzioni">
+  <div class="istr-testo">
+    Aggiungi alla schermata home per accesso rapido<br>
+    <strong>Android:</strong> Menu ⋮ → Aggiungi a schermata home &nbsp;|&nbsp; <strong>iPhone:</strong> Condividi → Aggiungi a Home
+  </div>
+</div>
+
+<script>
+  // Redirect automatico dopo 1.5s se già aggiunta a schermata home
+  if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+    document.querySelector('.istruzioni').style.display = 'none';
+    document.querySelector('.btn-paga').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'https://tinyurl.com/4uyw3v3v';
+    });
+  }
+</script>
+
+</body>
+</html>
